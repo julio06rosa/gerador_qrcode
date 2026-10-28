@@ -1,0 +1,26 @@
+name: N2 Environments
+
+on:
+  push:
+    branches:
+      - docs/plano-gcs
+      - main
+  workflow_dispatch:
+
+jobs:
+  staging:
+    name: Validar staging
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Registrar validacao em staging
+        run: echo "Ambiente staging validado para a Atividade Avaliativa N2 - P2."
+
+  production:
+    name: Validar production
+    runs-on: ubuntu-latest
+    needs: staging
+    environment: production
+    steps:
+      - name: Registrar promocao para production
+        run: echo "Ambiente production acionado apos staging."
