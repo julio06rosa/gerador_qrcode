@@ -36,6 +36,15 @@ class _GeradorQrPageState extends State<GeradorQrPage> {
   String textoQr = '';
 
   void gerarQrCode() {
+    if (controlador.text.trim().isEmpty) {
+      setState(() {
+        textoQr = '';
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Informe um texto ou link válido.')),
+      );
+      return;
+    }
     setState(() {
       textoQr = controlador.text;
     });
