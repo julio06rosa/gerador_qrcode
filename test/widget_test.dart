@@ -21,4 +21,13 @@ void main() {
     // Verifica se o QR Code apareceu.
     expect(find.byType(QrImageView), findsOneWidget);
   });
+
+  testWidgets('Recusa texto composto apenas por espaços', (tester) async {
+    await tester.pumpWidget(const MeuApp());
+    await tester.enterText(find.byType(TextField), '   ');
+    await tester.tap(find.text('Gerar QR Code'));
+    await tester.pump();
+    expect(find.byType(QrImageView), findsNothing);
+    expect(find.text('Informe um texto ou link válido.'), findsOneWidget);
+  });
 }
